@@ -24,6 +24,10 @@ export default function Home() {
     }
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = showPopup ? "hidden" : "auto";
+  }, [showPopup]);
+
   return (
     <div className="bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 min-h-screen">
       <SponsorPopup
@@ -34,8 +38,9 @@ export default function Home() {
           navigate("/signup");
         }}
       />
+
       <main>
-        <Navbar />
+        {!showPopup && <Navbar />}
         <HeroSection />
         <CategoriesSection />
         <FeaturedOpportunities />
