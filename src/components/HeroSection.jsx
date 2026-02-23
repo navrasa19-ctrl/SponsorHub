@@ -110,10 +110,10 @@ export default function HeroSection() {
                 key={i}
                 whileHover={{ y: -6 }}
                 className="group relative p-6 rounded-2xl 
-        bg-white/5 backdrop-blur-xl 
-        border border-white/10 
-        hover:border-purple-500/40 
-        transition-all duration-300"
+                bg-white/5 backdrop-blur-xl 
+                border border-white/10 
+                hover:border-purple-500/40 
+                transition-all duration-300"
               >
                 {/* Glow Effect */}
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-indigo-600/0 via-purple-600/0 to-pink-600/0 group-hover:from-indigo-600/10 group-hover:via-purple-600/10 group-hover:to-pink-600/10 transition-all duration-500" />

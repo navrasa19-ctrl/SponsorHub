@@ -34,10 +34,8 @@ export default function Home() {
           navigate("/signup");
         }}
       />
-
-      <Navbar />
-
       <main>
+        <Navbar />
         <HeroSection />
         <CategoriesSection />
         <FeaturedOpportunities />

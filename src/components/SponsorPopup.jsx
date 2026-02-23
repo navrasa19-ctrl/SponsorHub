@@ -30,7 +30,7 @@ export default function SponsorPopup({ open, onClose, onGetStarted }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+            className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm mt-8"
           />
 
           {/* Modal */}

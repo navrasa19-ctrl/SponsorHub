@@ -170,8 +170,6 @@ export default function TopNavbar() {
                     </AnimatePresence>
                 </div>
             </motion.header>
-
-            {/* Profile Panel */}
             <ProfilePanel isOpen={profilePanelOpen} onClose={() => setProfilePanelOpen(false)} />
 
             {/* Signup Prompt Modal */}

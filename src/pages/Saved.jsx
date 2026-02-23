@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 import OpportunityCard from "../components/OpportunityCard";
@@ -19,6 +19,10 @@ export default function Saved() {
   const handleRemove = (id) => {
     setSavedItems(savedItems.filter(item => item.id !== id));
   };
+
+   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 min-h-screen">
@@ -89,8 +93,6 @@ export default function Saved() {
           )}
         </div>
       </div>
-
-      {/* Details Modal */}
       <DetailsModal
         opportunity={selectedOpportunity}
         isOpen={!!selectedOpportunity}

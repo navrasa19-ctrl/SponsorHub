@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import OpportunityCard from "../components/OpportunityCard";
 import DetailsModal from "../components/DetailsModal";
 import { opportunitiesData, categoriesData } from "../context/dummyData";
@@ -224,6 +225,7 @@ export default function Opportunities() {
           )}
         </div>
       </div>
+      <Footer />
 
       {/* MODAL */}
       <DetailsModal
