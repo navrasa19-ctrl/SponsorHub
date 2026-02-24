@@ -1,3 +1,5 @@
+import { useState } from "react";
+import SignupPromptModal from "./SignupPromptModal.jsx";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, MapPin, Calendar, Users, Eye, Check } from "lucide-react";
 
@@ -8,6 +10,22 @@ export default function DetailsModal({
   onApply,
 }) {
   if (!isOpen || !opportunity) return null;
+
+  const [showSignupPrompt, setShowSignupPrompt] = useState(false);
+  const isLoggedIn = () => {
+    return Boolean(localStorage.getItem("token"));
+  };
+
+  const handleApply = () => {
+    const isLoggedIn = Boolean(localStorage.getItem("token"));
+
+    if (!isLoggedIn) {
+      setShowSignupPrompt(true);
+      return;
+    }
+
+    onApply(); 
+  };
 
   return (
     <AnimatePresence>
@@ -145,7 +163,7 @@ export default function DetailsModal({
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={onApply}
+            onClick={handleApply}
             className="flex-1 py-3 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-semibold hover:shadow-xl transition"
           >
             Apply Now
@@ -161,6 +179,13 @@ export default function DetailsModal({
           </motion.button>
         </div>
       </motion.div>
+      {showSignupPrompt && (
+        <SignupPromptModal
+          onClose={() => setShowSignupPrompt(false)}
+          onSignup={() => navigate("/signup")}
+        />
+      )}
     </AnimatePresence>
+
   );
 }

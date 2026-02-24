@@ -64,9 +64,8 @@ export default function TopNavbar() {
                                         {({ isActive }) => (
                                             <motion.div
                                                 whileHover={{ y: -2 }}
-                                                className={`relative flex items-center gap-2 text-sm font-medium transition ${
-                                                    isActive ? "text-purple-400" : "text-gray-300 hover:text-white"
-                                                }`}
+                                                className={`relative flex items-center gap-2 text-sm font-medium transition ${isActive ? "text-purple-400" : "text-gray-300 hover:text-white"
+                                                    }`}
                                             >
                                                 <Icon className="w-4 h-4" />
                                                 {item.label}
@@ -134,8 +133,7 @@ export default function TopNavbar() {
                                                 to={item.path}
                                                 onClick={() => setMobileMenuOpen(false)}
                                                 className={({ isActive }) =>
-                                                    `flex items-center gap-3 text-base font-medium transition ${
-                                                        isActive ? "text-purple-400" : "text-gray-300 hover:text-white"
+                                                    `flex items-center gap-3 text-base font-medium transition ${isActive ? "text-purple-400" : "text-gray-300 hover:text-white"
                                                     }`
                                                 }
                                             >
@@ -171,11 +169,10 @@ export default function TopNavbar() {
                 </div>
             </motion.header>
             <ProfilePanel isOpen={profilePanelOpen} onClose={() => setProfilePanelOpen(false)} />
-
-            {/* Signup Prompt Modal */}
             <AnimatePresence>
                 {showSignupPrompt && (
                     <>
+                        {/* Overlay */}
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
@@ -183,36 +180,61 @@ export default function TopNavbar() {
                             onClick={() => setShowSignupPrompt(false)}
                             className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50"
                         />
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                            animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-2xl border border-white/20 shadow-2xl p-8 max-w-sm z-50"
-                        >
-                            <h3 className="text-2xl font-bold text-white mb-3">Access Your Profile</h3>
-                            <p className="text-gray-400 mb-6">Please sign up or log in to access your profile and manage your sponsorships.</p>
-                            <div className="flex gap-3">
-                                <motion.button
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    onClick={() => {
-                                        navigate("/signup");
-                                        setShowSignupPrompt(false);
-                                    }}
-                                    className="flex-1 py-2 rounded-lg bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-semibold hover:shadow-lg transition-shadow"
+
+                        {/* Centered Modal Wrapper */}
+                        <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                                className="
+                                    w-full max-w-sm
+                                    bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900
+                                    rounded-2xl border border-white/20 shadow-2xl
+                                    p-6 sm:p-8
+                                  "
                                 >
-                                    Sign Up
-                                </motion.button>
-                                <motion.button
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    onClick={() => setShowSignupPrompt(false)}
-                                    className="flex-1 py-2 rounded-lg border border-white/20 text-white font-semibold hover:bg-white/10 transition-colors"
-                                >
-                                    Close
-                                </motion.button>
-                            </div>
-                        </motion.div>
+                                <h3 className="text-xl sm:text-2xl font-bold text-white mb-3 text-center">
+                                    Access Your Profile
+                                </h3>
+
+                                <p className="text-gray-400 mb-6 text-sm sm:text-base text-center">
+                                    Please sign up or log in to access your profile and manage your sponsorships.
+                                </p>
+
+                                <div className="flex flex-col sm:flex-row gap-3">
+                                    <motion.button
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        onClick={() => {
+                                            navigate("/signup");
+                                            setShowSignupPrompt(false);
+                                        }}
+                                        className="
+                                            flex-1 py-2.5 rounded-lg
+                                            bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600
+                                            text-white font-semibold
+                                            hover:shadow-lg transition-shadow
+                                          "
+                                    >
+                                        Sign Up
+                                    </motion.button>
+
+                                    <motion.button
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        onClick={() => setShowSignupPrompt(false)}
+                                        className="
+                                        flex-1 py-2.5 rounded-lg
+                                        border border-white/20 text-white font-semibold
+                                        hover:bg-white/10 transition-colors
+                                      "
+                                    >
+                                        Close
+                                    </motion.button>
+                                </div>
+                            </motion.div>
+                        </div>
                     </>
                 )}
             </AnimatePresence>

@@ -1,11 +1,16 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import SignupPromptModal from "./SignupPromptModal.jsx";
 import { ArrowRight, Sparkles, Briefcase, Building2, CheckCircle, Users } from 'lucide-react';
 
 
 export default function HeroSection() {
   const navigate = useNavigate();
-
+  const [showSignupPrompt, setShowSignupPrompt] = useState(false);
+  const isLoggedIn = () => {
+  return Boolean(localStorage.getItem("token")); 
+};
   return (
     <div className="pt-32 pb-20 px-4 relative overflow-hidden">
       <div className="absolute inset-0 -z-10">
@@ -68,7 +73,13 @@ export default function HeroSection() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => navigate('/createopportunity')}
+              onClick={() => {
+                if (!isLoggedIn()) {
+                  setShowSignupPrompt(true);
+                } else {
+                  navigate("/createopportunity");
+                }
+              }}
               className="px-8 py-4 rounded-lg border border-white/20 text-white font-semibold hover:bg-white/10 transition-colors flex items-center gap-2"
             >
               Create Opportunity <ArrowRight size={20} />
@@ -140,7 +151,14 @@ export default function HeroSection() {
             );
           })}
         </motion.div>
+
       </div>
+      {showSignupPrompt && (
+        <SignupPromptModal
+          onClose={() => setShowSignupPrompt(false)}
+          onSignup={() => navigate("/signup")}
+        />
+      )}
     </div>
   );
 }

@@ -1,9 +1,15 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import SignupPromptModal from "./SignupPromptModal.jsx";
 import { ArrowRight, Sparkles } from 'lucide-react';
 
 export default function CTASection() {
   const navigate = useNavigate();
+  const [showSignupPrompt, setShowSignupPrompt] = useState(false);
+  const isLoggedIn = () => {
+  return Boolean(localStorage.getItem("token")); 
+  };
 
   return (
     <div className="py-20 px-4 relative  overflow-hidden">
@@ -28,7 +34,7 @@ export default function CTASection() {
           </motion.div>
 
           <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">
-            Ready to Get <span className="text-purple-400">Sponsored?</span> 
+            Ready to Get <span className="text-purple-400">Sponsored?</span>
           </h2>
 
           <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
@@ -38,13 +44,25 @@ export default function CTASection() {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => navigate('/createopportunity')}
+            onClick={() => {
+              if (!isLoggedIn()) {
+                setShowSignupPrompt(true);
+              } else {
+                navigate("/createopportunity");
+              }
+            }}
             className="px-10 py-4 rounded-lg bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-semibold flex items-center gap-3 mx-auto hover:shadow-2xl transition-shadow"
           >
             Create Opportunity <ArrowRight size={20} />
           </motion.button>
         </motion.div>
       </div>
+      {showSignupPrompt && (
+        <SignupPromptModal
+          onClose={() => setShowSignupPrompt(false)}
+          onSignup={() => navigate("/signup")}
+        />
+      )}
     </div>
   );
 }

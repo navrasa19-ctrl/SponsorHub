@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
 import CategoriesSection from "../components/CategoriesSection";
@@ -38,7 +37,6 @@ export default function Home() {
           navigate("/signup");
         }}
       />
-
       <main>
         {!showPopup && <Navbar />}
         <HeroSection />
@@ -46,7 +44,6 @@ export default function Home() {
         <FeaturedOpportunities />
         <CTASection />
       </main>
-
       <Footer />
     </div>
   );

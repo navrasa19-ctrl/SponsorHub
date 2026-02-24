@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import SignupPromptModal from "./SignupPromptModal.jsx";
 import OpportunityCard from './OpportunityCard';
 import DetailsModal from './DetailsModal';
 import { opportunitiesData } from '../context/dummyData';
