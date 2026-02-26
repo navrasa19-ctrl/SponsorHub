@@ -23,12 +23,16 @@ export default function Home() {
     }
   }, []);
 
-  useEffect(() => {
-    document.body.style.overflow = showPopup ? "hidden" : "auto";
-  }, [showPopup]);
-
   return (
-    <div className="bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 min-h-screen">
+    <div className="relative min-h-screen bg-[#FFF7ED] overflow-x-hidden">
+      {/* Global Background Glow */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-orange/15 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-[40rem] h-[40rem] bg-peach/25 rounded-full blur-3xl" />
+      </div>
+
+      <Navbar />
+
       <SponsorPopup
         open={showPopup}
         onClose={() => setShowPopup(false)}
@@ -37,13 +41,14 @@ export default function Home() {
           navigate("/signup");
         }}
       />
+
       <main>
-        {!showPopup && <Navbar />}
         <HeroSection />
         <CategoriesSection />
         <FeaturedOpportunities />
         <CTASection />
       </main>
+
       <Footer />
     </div>
   );

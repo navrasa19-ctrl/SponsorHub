@@ -9,6 +9,7 @@ import Opportunities from "./pages/Opportunities";
 import Saved from "./pages/Saved";
 import MyOpportunities from "./pages/MyOpportunities";
 import MyApplications from "./pages/MyApplications";
+import "./index.css";
 
 function App() {
   return (

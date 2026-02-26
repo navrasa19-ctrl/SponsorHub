@@ -23,10 +23,10 @@ export default function CategoriesSection() {
   const navigate = useNavigate();
 
   return (
-    <section className="relative py-24 px-6 bg-gradient-to-b from-[#0f172a] to-[#111827] overflow-hidden">
-      {/* Background Glow (same as before) */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl -z-10" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl -z-10" />
+    <section className="relative py-24 px-6 bg-cream overflow-hidden">
+      {/* Background Glow */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-orange/25 rounded-full blur-3xl -z-10" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-peach/35 rounded-full blur-3xl -z-10" />
 
       <div className="max-w-7xl mx-auto">
         {/* Heading */}
@@ -37,10 +37,13 @@ export default function CategoriesSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white">
-            Explore <span className="text-purple-400">Categories</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-coffee">
+            Explore{" "}
+            <span className="text-transparent bg-clip-text bg-brand-gradient">
+              Categories
+            </span>
           </h2>
-          <p className="mt-4 text-gray-400 text-lg">
+          <p className="mt-4 text-muted text-lg">
             Discover sponsorship opportunities across industries
           </p>
         </motion.div>
@@ -61,41 +64,46 @@ export default function CategoriesSection() {
                 onClick={() =>
                   navigate(`/opportunity?category=${category.name}`)
                 }
-                className="group relative rounded-3xl p-6 cursor-pointer
-                bg-white/5 border border-white/10 backdrop-blur-lg
-                hover:border-purple-500/40 hover:bg-white/10 transition-all duration-300"
+                className="
+                  group relative rounded-3xl p-6 cursor-pointer
+                  bg-white/60 backdrop-blur-xl
+                  border border-peach
+                  hover:border-orange
+                  transition-all duration-300
+                "
               >
-                {/* hover gradient overlay */}
-                <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition duration-300 bg-gradient-to-br from-indigo-500/20 via-purple-500/20 to-pink-500/20" />
+                {/* Hover Glow */}
+                <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-20 transition duration-300 bg-brand-gradient" />
 
                 <div className="relative z-10 flex items-center justify-between gap-4">
-                  {/* Left content */}
+                  {/* Left Content */}
                   <div>
-                    <p className="text-sm text-gray-400 mb-1">
-                      Category
-                    </p>
+                    <p className="text-sm text-muted mb-1">Category</p>
 
-                    <h3 className="text-2xl font-semibold text-white">
+                    <h3 className="text-2xl font-semibold text-coffee">
                       {category.name}
                     </h3>
 
-                    <p className="text-gray-400 text-sm mt-2">
+                    <p className="text-muted text-sm mt-2">
                       {category.opportunities} opportunities
                     </p>
 
-                    <div className="mt-5 text-purple-400 font-medium group-hover:translate-x-1 transition">
+                    <div className="mt-5 text-orange font-medium group-hover:translate-x-1 transition">
                       View Opportunities →
                     </div>
                   </div>
 
-                  {/* Right icon box (image style feel) */}
+                  {/* Icon Box */}
                   <div
-                    className="w-24 h-24 rounded-2xl flex items-center justify-center
-                    bg-gradient-to-br from-indigo-600 to-purple-600
-                    shadow-lg group-hover:scale-105 transition"
+                    className="
+                      w-24 h-24 rounded-2xl flex items-center justify-center
+                      bg-brand-gradient
+                      shadow-soft
+                      group-hover:scale-105 transition
+                    "
                   >
                     {IconComponent && (
-                      <IconComponent size={42} className="text-white" />
+                      <IconComponent size={42} className="text-coffee" />
                     )}
                   </div>
                 </div>

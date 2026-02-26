@@ -8,30 +8,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Primary gradient blues
-        navy: {
-          900: "#02075D",
-          800: "#003B8E",
-        },
-        blue: {
-          700: "#0072B8",
-          600: "#0093C7",
-        },
-        cyan: {
-          500: "#00B5D8",
-          300: "#4DD0E1",
-          200: "#80DEEA",
-          100: "#B2EBF2",
-          50:  "#E0F7FA",
+        cream: "#FFFDF1",       // background
+        peach: "#FFCE99",       // soft accent
+        orange: "#FF9644",      // primary
+        coffee: "#562F00",      // dark text / contrast
+
+        brand: {
+          light: "#FFCE99",
+          DEFAULT: "#FF9644",
+          dark: "#562F00",
         },
 
-        // UI support
-        dark: "#0F172A",
-        muted: "#64748B",
-        border: "#E2E8F0",
-
-        // Accent
-        golden: "#c8901d",
+        border: "#F2E6D8",
+        muted: "#8A6A4F",
       },
 
       fontFamily: {
@@ -40,8 +29,8 @@ export default {
       },
 
       boxShadow: {
-        soft: "0 10px 25px rgba(0, 181, 216, 0.15)",
-        glow: "0 0 20px rgba(139, 92, 246, 0.5)",
+        soft: "0 10px 25px rgba(255, 150, 68, 0.25)",
+        glow: "0 0 20px rgba(255, 150, 68, 0.45)",
       },
 
       borderRadius: {
@@ -50,7 +39,6 @@ export default {
 
       animation: {
         gradient: 'gradient 8s ease infinite',
-        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'float': 'float 6s ease-in-out infinite',
       },
 
@@ -61,12 +49,13 @@ export default {
         },
         float: {
           '0%, 100%': { transform: 'translateY(0px)' },
-          '50%': { transform: 'translateY(-20px)' },
+          '50%': { transform: 'translateY(-16px)' },
         },
       },
 
       backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'brand-gradient':
+          'linear-gradient(135deg, #FFCE99, #FF9644)',
       },
     },
   },

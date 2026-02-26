@@ -10,7 +10,7 @@ export default function OpportunityCard({
   const [isSaved, setIsSaved] = useState(false);
 
   const handleSave = (e) => {
-    e.stopPropagation(); 
+    e.stopPropagation();
     setIsSaved((prev) => !prev);
     if (onSave) onSave(opportunity);
   };
@@ -23,7 +23,26 @@ export default function OpportunityCard({
       transition={{ duration: 0.4 }}
       className="group h-full"
     >
-      <div className="h-full flex flex-col rounded-3xl overflow-hidden bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl border border-white/10 shadow-lg hover:shadow-purple-600/20 hover:border-purple-500/40 transition-all duration-300">
+      <div
+        className="
+          relative h-full flex flex-col overflow-hidden rounded-3xl
+          bg-white/60 backdrop-blur-xl
+          border border-peach
+          shadow-soft
+          hover:border-orange
+          hover:shadow-glow
+          transition-all duration-300
+        "
+      >
+        {/* Glossy Overlay */}
+        <div
+          className="
+            pointer-events-none absolute inset-0
+            bg-gradient-to-tr from-white/50 via-white/10 to-transparent
+            opacity-0 group-hover:opacity-100
+            transition duration-500
+          "
+        />
 
         {/* IMAGE SECTION */}
         <div className="relative h-52 overflow-hidden">
@@ -33,63 +52,68 @@ export default function OpportunityCard({
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
           />
 
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+          {/* Image overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-coffee/70 via-coffee/30 to-transparent" />
 
           {/* Save Button */}
           <motion.button
             whileTap={{ scale: 0.9 }}
             whileHover={{ scale: 1.1 }}
             onClick={handleSave}
-            className="absolute top-4 right-4 p-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 hover:bg-white/20 transition-all"
+            className="
+              absolute top-4 right-4 z-10
+              p-2 rounded-full
+              bg-white/70 backdrop-blur-md
+              border border-peach
+              hover:bg-peach/50
+              transition-all
+            "
           >
             <Heart
               size={18}
               className={
                 isSaved
-                  ? "fill-red-500 text-red-500"
-                  : "text-white"
+                  ? "fill-orange text-orange"
+                  : "text-coffee"
               }
             />
           </motion.button>
 
           {/* Category Badge */}
-          <div className="absolute top-4 left-4">
-            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-md">
+          <div className="absolute top-4 left-4 z-10">
+            <span className="px-3 py-1 rounded-full text-xs font-semibold bg-brand-gradient text-coffee shadow-md">
               {opportunity.category}
             </span>
           </div>
         </div>
 
         {/* CONTENT */}
-        <div className="p-6 flex flex-col flex-grow">
-
+        <div className="p-6 flex flex-col flex-grow relative z-10">
           {/* TITLE */}
-          <h3 className="text-lg font-bold text-white mb-2 line-clamp-2 group-hover:text-purple-400 transition-colors">
+          <h3 className="text-lg font-bold text-coffee mb-2 line-clamp-2 group-hover:text-orange transition-colors">
             {opportunity.title}
           </h3>
 
           {/* DESCRIPTION */}
-          <p className="text-sm text-gray-300 mb-5 line-clamp-3 leading-relaxed">
+          <p className="text-sm text-muted mb-5 line-clamp-3 leading-relaxed">
             {opportunity.description}
           </p>
 
           {/* INFO */}
           <div className="mt-auto space-y-3">
-
             {/* Budget */}
             <div className="flex items-center justify-between text-sm">
-              <span className="flex items-center gap-1 text-gray-400">
+              <span className="flex items-center gap-1 text-muted">
                 <DollarSign size={14} />
                 Budget
               </span>
-              <span className="font-semibold text-purple-400">
-                {opportunity.budget}
+              <span className="font-semibold text-orange">
+                ₹ {opportunity.budget}
               </span>
             </div>
 
             {/* Date & Views */}
-            <div className="flex items-center justify-between text-xs text-gray-400">
+            <div className="flex items-center justify-between text-xs text-muted">
               <span className="flex items-center gap-1">
                 <Calendar size={14} />
                 {opportunity.eventDate}
@@ -108,13 +132,27 @@ export default function OpportunityCard({
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => onViewDetails(opportunity)}
-              className="w-full mt-4 py-3 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-semibold text-sm hover:shadow-lg transition-all"
+              className="
+                w-full mt-4 py-3 rounded-xl
+                bg-brand-gradient
+                text-coffee font-semibold text-sm
+                shadow-soft
+                hover:shadow-glow
+                transition-all
+              "
             >
               View Details
             </motion.button>
-
           </div>
         </div>
+
+        {/* Top Shine Strip */}
+        <div
+          className="
+            absolute top-0 left-0 w-full h-[2px]
+            bg-gradient-to-r from-transparent via-white/70 to-transparent
+          "
+        />
       </div>
     </motion.div>
   );

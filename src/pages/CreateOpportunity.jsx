@@ -20,19 +20,14 @@ export default function CreateOpportunity() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleImageUpload = (e) => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = (e) => {
-        setImagePreview(e.target?.result);
-      };
+      reader.onload = (e) => setImagePreview(e.target?.result);
       reader.readAsDataURL(file);
     }
   };
@@ -62,30 +57,39 @@ export default function CreateOpportunity() {
     formData.budget &&
     formData.description;
 
-   useEffect(() => {
+  useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   return (
-    <div className="bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 min-h-screen">
+    <div className="relative min-h-screen bg-cream overflow-x-hidden">
+      {/* Background Glow */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-0 right-0 w-[35rem] h-[35rem] bg-orange/15 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-[35rem] h-[35rem] bg-peach/25 rounded-full blur-3xl" />
+      </div>
+
       <Navbar />
 
-      {/* Hero Section */}
+      {/* Hero */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7 }}
         className="pt-32 pb-16 px-4 text-center"
       >
-        <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
-          Create Sponsorship <span className="text-purple-400">Opportunities</span>
+        <h1 className="text-5xl md:text-6xl font-bold text-coffee mb-4">
+          Create Sponsorship{" "}
+          <span className="text-transparent bg-clip-text bg-brand-gradient">
+            Opportunities
+          </span>
         </h1>
-        <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+        <p className="text-muted text-lg max-w-2xl mx-auto">
           Post your event and connect with sponsors worldwide
         </p>
       </motion.div>
 
-      {/* Form Section */}
+      {/* Form */}
       <div className="px-4 pb-20">
         <div className="max-w-5xl mx-auto">
           <motion.form
@@ -93,17 +97,20 @@ export default function CreateOpportunity() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
             onSubmit={handleSubmit}
-            className="rounded-3xl bg-white/5 backdrop-blur-2xl 
-            border border-white/10 shadow-[0_0_40px_rgba(139,92,246,0.15)] 
-            p-10"
+            className="
+              rounded-3xl p-10
+              bg-white/70 backdrop-blur-xl
+              border border-peach
+              shadow-2xl
+            "
           >
             {/* Image Upload */}
             <div className="mb-10">
-              <label className="block text-sm font-semibold text-gray-300 mb-3">
+              <label className="block text-sm font-semibold text-coffee mb-3">
                 Cover Image
               </label>
 
-              <div className="border-2 border-dashed border-white/20 rounded-xl p-8 text-center hover:border-purple-500/50 transition-all cursor-pointer bg-slate-900">
+              <div className="border-2 border-dashed border-peach rounded-xl p-8 text-center hover:border-orange transition cursor-pointer bg-cream">
                 <input
                   type="file"
                   accept="image/*"
@@ -123,11 +130,11 @@ export default function CreateOpportunity() {
                     />
                   ) : (
                     <>
-                      <Upload className="w-10 h-10 text-purple-400 mx-auto mb-3" />
-                      <p className="text-white font-semibold">
+                      <Upload className="w-10 h-10 text-orange mx-auto mb-3" />
+                      <p className="text-coffee font-semibold">
                         Click to upload image
                       </p>
-                      <p className="text-gray-500 text-sm">
+                      <p className="text-muted text-sm">
                         PNG, JPG up to 5MB
                       </p>
                     </>
@@ -136,106 +143,64 @@ export default function CreateOpportunity() {
               </div>
             </div>
 
-            {/* Form Grid */}
+            {/* Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
               {/* LEFT */}
               <div className="space-y-6">
-                {/* Title */}
-                <div>
-                  <label className="block text-sm font-semibold text-gray-300 mb-2">
-                    Opportunity Title *
-                  </label>
-                  <input
-                    type="text"
-                    name="title"
-                    value={formData.title}
-                    onChange={handleInputChange}
-                    placeholder="Annual Tech Summit 2026"
-                    className="w-full px-4 py-3 rounded-xl bg-slate-900 
-                    border border-white/10 text-white 
-                    placeholder-gray-500 focus:outline-none 
-                    focus:border-purple-500 focus:ring-2 
-                    focus:ring-purple-500/30 transition-all"
-                    required
-                  />
-                </div>
+                {[
+                  { label: "Opportunity Title *", name: "title", placeholder: "Annual Tech Summit 2026" },
+                  { label: "Budget Range *", name: "budget", placeholder: "$10,000 - $50,000" },
+                  { label: "Location", name: "location", placeholder: "City, Country" },
+                ].map((field, i) => (
+                  <div key={i}>
+                    <label className="block text-sm font-semibold text-coffee mb-2">
+                      {field.label}
+                    </label>
+                    <input
+                      type="text"
+                      name={field.name}
+                      value={formData[field.name]}
+                      onChange={handleInputChange}
+                      placeholder={field.placeholder}
+                      className="
+                        w-full px-4 py-3 rounded-xl
+                        bg-white/70 border border-peach
+                        text-coffee placeholder-muted
+                        focus:outline-none focus:border-orange
+                      "
+                      required={field.label.includes("*")}
+                    />
+                  </div>
+                ))}
 
                 {/* Category */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-300 mb-2">
+                  <label className="block text-sm font-semibold text-coffee mb-2">
                     Category *
                   </label>
-
                   <div className="relative">
                     <select
                       name="category"
                       value={formData.category}
                       onChange={handleInputChange}
-                      className="w-full appearance-none px-4 py-3 pr-10 
-                      rounded-xl bg-slate-900 border border-white/10 
-                      text-white focus:outline-none 
-                      focus:border-purple-500 focus:ring-2 
-                      focus:ring-purple-500/30 transition-all"
+                      className="
+                        w-full appearance-none px-4 py-3 pr-10
+                        rounded-xl bg-white/70 border border-peach
+                        text-coffee focus:outline-none focus:border-orange
+                      "
                       required
                     >
-                      <option value="" className="bg-slate-900 text-gray-400">
-                        Select category
-                      </option>
-
+                      <option value="">Select category</option>
                       {categoriesData.map((cat) => (
-                        <option
-                          key={cat.id}
-                          value={cat.name}
-                          className="bg-slate-900 text-white"
-                        >
+                        <option key={cat.id} value={cat.name}>
                           {cat.name}
                         </option>
                       ))}
                     </select>
-
                     <div className="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-                      <ArrowDown className="w-4 h-4 text-gray-400" />
+                      <ArrowDown className="w-4 h-4 text-muted" />
                     </div>
                   </div>
-                </div>
-
-                {/* Budget */}
-                <div>
-                  <label className="block text-sm font-semibold text-gray-300 mb-2">
-                    Budget Range *
-                  </label>
-                  <input
-                    type="text"
-                    name="budget"
-                    value={formData.budget}
-                    onChange={handleInputChange}
-                    placeholder="$10,000 - $50,000"
-                    className="w-full px-4 py-3 rounded-xl bg-slate-900 
-                    border border-white/10 text-white 
-                    placeholder-gray-500 focus:outline-none 
-                    focus:border-purple-500 focus:ring-2 
-                    focus:ring-purple-500/30 transition-all"
-                    required
-                  />
-                </div>
-
-                {/* Location */}
-                <div>
-                  <label className="block text-sm font-semibold text-gray-300 mb-2">
-                    Location
-                  </label>
-                  <input
-                    type="text"
-                    name="location"
-                    value={formData.location}
-                    onChange={handleInputChange}
-                    placeholder="City, Country"
-                    className="w-full px-4 py-3 rounded-xl bg-slate-900 
-                    border border-white/10 text-white 
-                    placeholder-gray-500 focus:outline-none 
-                    focus:border-purple-500 focus:ring-2 
-                    focus:ring-purple-500/30 transition-all"
-                  />
                 </div>
               </div>
 
@@ -243,7 +208,7 @@ export default function CreateOpportunity() {
               <div className="space-y-6">
                 {/* Date */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-300 mb-2">
+                  <label className="block text-sm font-semibold text-coffee mb-2">
                     Event Date
                   </label>
                   <input
@@ -251,16 +216,17 @@ export default function CreateOpportunity() {
                     name="eventDate"
                     value={formData.eventDate}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 rounded-xl bg-slate-900 
-                    border border-white/10 text-white 
-                    focus:outline-none focus:border-purple-500 
-                    focus:ring-2 focus:ring-purple-500/30 transition-all"
+                    className="
+                      w-full px-4 py-3 rounded-xl
+                      bg-white/70 border border-peach
+                      text-coffee focus:outline-none focus:border-orange
+                    "
                   />
                 </div>
 
                 {/* Description */}
                 <div>
-                  <label className="block text-sm font-semibold text-gray-300 mb-2">
+                  <label className="block text-sm font-semibold text-coffee mb-2">
                     Description *
                   </label>
                   <textarea
@@ -269,11 +235,12 @@ export default function CreateOpportunity() {
                     onChange={handleInputChange}
                     rows={7}
                     placeholder="Describe your opportunity..."
-                    className="w-full px-4 py-3 rounded-xl bg-slate-900 
-                    border border-white/10 text-white 
-                    placeholder-gray-500 focus:outline-none 
-                    focus:border-purple-500 focus:ring-2 
-                    focus:ring-purple-500/30 transition-all resize-none"
+                    className="
+                      w-full px-4 py-3 rounded-xl resize-none
+                      bg-white/70 border border-peach
+                      text-coffee placeholder-muted
+                      focus:outline-none focus:border-orange
+                    "
                     required
                   />
                 </div>
@@ -286,13 +253,16 @@ export default function CreateOpportunity() {
               whileTap={{ scale: 0.97 }}
               disabled={!isFormValid || loading}
               type="submit"
-              className={`w-full py-4 rounded-xl font-semibold 
-              flex items-center justify-center gap-2 
-              transition-all duration-300 ${
-                isFormValid && !loading
-                  ? "bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white hover:shadow-[0_0_25px_rgba(168,85,247,0.5)]"
-                  : "opacity-50 cursor-not-allowed bg-gray-600"
-              }`}
+              className={`
+                w-full py-4 rounded-xl font-semibold
+                flex items-center justify-center gap-2
+                transition-all
+                ${
+                  isFormValid && !loading
+                    ? "bg-brand-gradient text-coffee shadow-soft hover:shadow-glow"
+                    : "opacity-50 cursor-not-allowed bg-muted text-white"
+                }
+              `}
             >
               {loading ? (
                 <>

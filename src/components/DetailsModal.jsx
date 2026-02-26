@@ -2,6 +2,7 @@ import { useState } from "react";
 import SignupPromptModal from "./SignupPromptModal.jsx";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, MapPin, Calendar, Users, Eye, Check } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function DetailsModal({
   opportunity,
@@ -9,22 +10,18 @@ export default function DetailsModal({
   onClose,
   onApply,
 }) {
-  if (!isOpen || !opportunity) return null;
-
   const [showSignupPrompt, setShowSignupPrompt] = useState(false);
-  const isLoggedIn = () => {
-    return Boolean(localStorage.getItem("token"));
-  };
+  const navigate = useNavigate();
+
+  if (!isOpen || !opportunity) return null;
 
   const handleApply = () => {
     const isLoggedIn = Boolean(localStorage.getItem("token"));
-
     if (!isLoggedIn) {
       setShowSignupPrompt(true);
       return;
     }
-
-    onApply(); 
+    onApply();
   };
 
   return (
@@ -35,7 +32,7 @@ export default function DetailsModal({
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         onClick={onClose}
-        className="fixed inset-0 bg-black/60 backdrop-blur-md z-40"
+        className="fixed inset-0 bg-black/50 backdrop-blur-md z-40"
       />
 
       {/* Modal */}
@@ -44,26 +41,31 @@ export default function DetailsModal({
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 30 }}
         transition={{ duration: 0.3 }}
-        className="fixed inset-3 md:inset-16 lg:inset-24 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-3xl border border-white/10 shadow-2xl z-50 overflow-hidden flex flex-col"
+        className="
+          fixed inset-3 md:inset-16 lg:inset-24 z-50
+          rounded-3xl overflow-hidden flex flex-col
+          bg-white/60 backdrop-blur-xl
+          border border-peach
+          shadow-2xl
+        "
       >
-        {/* HEADER (Sticky) */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-slate-900/80 backdrop-blur-md sticky top-0 z-10">
-          <h2 className="text-white font-semibold text-lg">
+        {/* HEADER */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-peach bg-cream/80 backdrop-blur-md sticky top-0 z-10">
+          <h2 className="text-coffee font-semibold text-lg">
             Opportunity Details
           </h2>
 
           <motion.button
             whileHover={{ rotate: 90 }}
             onClick={onClose}
-            className="p-2 rounded-lg hover:bg-white/10 transition"
+            className="p-2 rounded-lg hover:bg-peach/40 transition"
           >
-            <X size={22} className="text-white" />
+            <X size={22} className="text-coffee" />
           </motion.button>
         </div>
 
-        {/* SCROLLABLE CONTENT */}
+        {/* CONTENT */}
         <div className="overflow-y-auto flex-1">
-
           {/* HERO */}
           <div className="relative h-64 w-full overflow-hidden">
             <img
@@ -71,24 +73,23 @@ export default function DetailsModal({
               alt={opportunity.title}
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-black/40 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-coffee/70 via-coffee/30 to-transparent" />
 
             <div className="absolute bottom-6 left-6">
-              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r from-indigo-500 to-purple-500 text-white">
+              <span className="px-3 py-1 rounded-full text-xs font-semibold bg-brand-gradient text-coffee shadow-md">
                 {opportunity.category}
               </span>
-              <h1 className="text-3xl md:text-4xl font-bold text-white mt-3">
+              <h1 className="text-3xl md:text-4xl font-bold text-white mt-3 drop-shadow">
                 {opportunity.title}
               </h1>
-              <p className="text-gray-300 text-sm mt-1">
+              <p className="text-white/80 text-sm mt-1">
                 Posted by {opportunity.owner}
               </p>
             </div>
           </div>
 
-          {/* MAIN CONTENT */}
+          {/* MAIN */}
           <div className="p-6 md:p-10 space-y-10">
-
             {/* Quick Stats */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
@@ -101,11 +102,17 @@ export default function DetailsModal({
                 return (
                   <div
                     key={i}
-                    className="p-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition"
+                    className="
+                      p-4 rounded-2xl
+                      bg-white/70 backdrop-blur
+                      border border-peach
+                      hover:border-orange
+                      transition
+                    "
                   >
-                    <Icon className="w-5 h-5 text-purple-400 mb-2" />
-                    <p className="text-xs text-gray-400">{stat.label}</p>
-                    <p className="text-lg font-semibold text-white">
+                    <Icon className="w-5 h-5 text-orange mb-2" />
+                    <p className="text-xs text-muted">{stat.label}</p>
+                    <p className="text-lg font-semibold text-coffee">
                       {stat.value || "-"}
                     </p>
                   </div>
@@ -114,21 +121,21 @@ export default function DetailsModal({
             </div>
 
             {/* Budget */}
-            <div className="p-8 rounded-3xl bg-gradient-to-r from-indigo-600/20 via-purple-600/20 to-pink-600/20 border border-white/10">
-              <p className="text-gray-300 mb-2 text-sm uppercase tracking-wide">
+            <div className="p-8 rounded-3xl bg-brand-gradient border border-peach shadow-soft">
+              <p className="text-coffee/80 mb-2 text-sm uppercase tracking-wide">
                 Sponsorship Budget
               </p>
-              <p className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">
-                {opportunity.budget}
+              <p className="text-4xl font-bold text-coffee">
+                ₹ {opportunity.budget}
               </p>
             </div>
 
             {/* Description */}
             <div>
-              <h3 className="text-2xl font-semibold text-white mb-4">
+              <h3 className="text-2xl font-semibold text-coffee mb-4">
                 About This Opportunity
               </h3>
-              <p className="text-gray-300 leading-relaxed">
+              <p className="text-muted leading-relaxed">
                 {opportunity.fullDescription}
               </p>
             </div>
@@ -136,7 +143,7 @@ export default function DetailsModal({
             {/* Benefits */}
             {opportunity.benefits && (
               <div>
-                <h3 className="text-2xl font-semibold text-white mb-6">
+                <h3 className="text-2xl font-semibold text-coffee mb-6">
                   What You'll Get
                 </h3>
 
@@ -145,26 +152,36 @@ export default function DetailsModal({
                     <motion.div
                       key={i}
                       whileHover={{ x: 6 }}
-                      className="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10"
+                      className="
+                        flex items-center gap-3 p-4 rounded-xl
+                        bg-white/70 backdrop-blur
+                        border border-peach
+                      "
                     >
-                      <Check size={18} className="text-purple-400" />
-                      <span className="text-gray-200">{benefit}</span>
+                      <Check size={18} className="text-orange" />
+                      <span className="text-coffee">{benefit}</span>
                     </motion.div>
                   ))}
                 </div>
               </div>
             )}
-
           </div>
         </div>
 
-        {/* FOOTER CTA */}
-        <div className="flex gap-4 p-6 border-t border-white/10 bg-slate-900/80 backdrop-blur-md">
+        {/* FOOTER */}
+        <div className="flex gap-4 p-6 border-t border-peach bg-cream/80 backdrop-blur-md">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleApply}
-            className="flex-1 py-3 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-semibold hover:shadow-xl transition"
+            className="
+              flex-1 py-3 rounded-xl
+              bg-brand-gradient
+              text-coffee font-semibold
+              shadow-soft
+              hover:shadow-glow
+              transition
+            "
           >
             Apply Now
           </motion.button>
@@ -173,12 +190,19 @@ export default function DetailsModal({
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={onClose}
-            className="flex-1 py-3 rounded-xl border border-white/20 text-white font-semibold hover:bg-white/10 transition"
+            className="
+              flex-1 py-3 rounded-xl
+              border border-peach
+              text-coffee font-semibold
+              hover:bg-peach/40
+              transition
+            "
           >
             Close
           </motion.button>
         </div>
       </motion.div>
+
       {showSignupPrompt && (
         <SignupPromptModal
           onClose={() => setShowSignupPrompt(false)}
@@ -186,6 +210,5 @@ export default function DetailsModal({
         />
       )}
     </AnimatePresence>
-
   );
 }

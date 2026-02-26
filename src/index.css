@@ -6,26 +6,25 @@
 
 @layer base {
   body {
-    @apply font-body bg-slate-900 text-white;
+    @apply font-body bg-cream text-coffee;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading;
+    @apply font-heading text-coffee;
   }
 }
 
 @layer utilities {
-  .animate-gradient {
-    animation: gradient 8s ease infinite;
-    background-size: 200% 200%;
-  }
-
   .glass {
-    @apply bg-white/10 backdrop-blur-xl border border-white/20;
+    @apply bg-white/60 backdrop-blur-xl border border-white/30;
   }
 
-  .gradient-button {
-    @apply bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white font-semibold;
+  .brand-button {
+    @apply bg-orange text-coffee font-semibold hover:bg-peach smooth-transition;
+  }
+
+  .brand-gradient {
+    @apply bg-brand-gradient text-coffee;
   }
 
   .smooth-transition {
@@ -33,46 +32,33 @@
   }
 }
 
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-/* Scrollbar Styling */
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
-  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.5);
+  background: #FFFDF1;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(139, 92, 246, 0.5);
+  background: #FF9644;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(139, 92, 246, 0.7);
+  background: #562F00;
 }
 
-/* Selection Styling */
+/* Selection */
 ::selection {
-  background: rgba(139, 92, 246, 0.3);
-  color: white;
+  background: #FFCE99;
+  color: #562F00;
 }
 
-/* Focus Visible */
+/* Focus */
 :focus-visible {
-  outline: 2px solid rgba(139, 92, 246, 0.5);
+  outline: 2px solid #FF9644;
   outline-offset: 2px;
 }
 
@@ -81,4 +67,20 @@ html {
   scroll-behavior: smooth;
 }
 
-  
+/* REMOVE BLUE SELECT HIGHLIGHT */
+select option {
+  background-color: #FFFDF1; /* cream */
+  color: #562F00;           /* coffee */
+}
+
+/* Hover */
+select option:hover {
+  background-color: #FFCE99; /* peach */
+  color: #562F00;
+}
+
+/* Selected option */
+select option:checked {
+  background-color: #FF9644 !important; /* orange */
+  color: #562F00 !important;
+}
